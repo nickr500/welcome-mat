@@ -15,13 +15,16 @@ import java.util.Map;
  * Created by nick on 4/5/14.
  */
 public class Request {
-    public static Response get(String URL, Map<String, String> headers) throws IOException {
+    public static Response get(String path) throws IOException {
+        return Request.get(path, new HashMap<String, String>());
+    }
+
+    public static Response get(String path, Map<String, String> headers) throws IOException {
         java.net.URL url = new URL(BASE_URL + path);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         try {
-            Map<String, String> headsWillRoll = generateHeaders(cookie);
-            for(String field : headsWillRoll.keySet()) {
-                http.setRequestProperty(field, headsWillRoll.get(field));
+            for(String field : headers.keySet()) {
+                http.setRequestProperty(field, headers.get(field));
             }
             //gets first string using similar code to the for loop above
             Map<String, String> firsts = new HashMap<String, String>();
