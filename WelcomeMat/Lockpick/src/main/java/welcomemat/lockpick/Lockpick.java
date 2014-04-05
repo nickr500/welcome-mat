@@ -3,6 +3,7 @@ package welcomemat.lockpick;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -25,10 +26,26 @@ public class Lockpick {
 
     // Nick
     PageInfo scrape(String path, String cookie, boolean getCookie) throws IOException {
-        Response resp = Request.get(BASE_URL + path, generateHeaders(cookie));
+        Response resp;
+        if(cookie != null) {
+            resp = Request.get(BASE_URL + path, generateHeaders(cookie));
+        } else {
+            resp = Request.get(BASE_URL + path);
+        }
         Document doc = Jsoup.parse(resp.getText());
-        
-        return null;
+
+        // Cookie
+        String newCookie = null;
+        if(getCookie) {
+            cookie = resp.getHeaders().get("set-cookie").split(";")[0];
+        }
+
+        // Get session token
+        Element elem = doc.select("script").get(0);
+        String[] parts = elem.text().trim().split("\\s+");
+        String part = parts[parts.length - 1];
+        String token = part.substring(1, parts.length - 2);
+        return new PageInfo(token, cookie);
     }
 
     // Allison
