@@ -1,10 +1,8 @@
 package welcomemat.lockpick;
 
-/**
- * Created by nick on 4/5/14.
- */
+
 public class Lockpick {
-    Config generateHeaders(String cookie) {
+    Map<String, String> generateHeaders(String cookie) {
         return null;
     }
 
@@ -16,10 +14,12 @@ public class Lockpick {
 
     }
 
+    // Nick
     ? scrape(String path, String cookie, boolean getCookie) {
 
     }
 
+    // Allison
     String login(Config config) {
         return null;
     }
