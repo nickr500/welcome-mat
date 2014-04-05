@@ -20,7 +20,7 @@ public class Request {
     }
 
     public static Response get(String path, Map<String, String> headers) throws IOException {
-        java.net.URL url = new URL(BASE_URL + path);
+        java.net.URL url = new URL(path);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         try {
             for(String field : headers.keySet()) {
@@ -36,9 +36,9 @@ public class Request {
         } finally {
             http.disconnect();
         }
-        return null;
     }
-    public static Response post() {
+
+    public static Response post(String path, Map<String, String> data, Map<String, String> headers) {
         return null;
     }
 }
