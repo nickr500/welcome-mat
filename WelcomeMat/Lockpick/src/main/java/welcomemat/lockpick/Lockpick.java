@@ -20,38 +20,21 @@ public class Lockpick {
     }
 
     // Allison
-    String login(Config config) {
+    String login(Config config){
         // Logs in to the huskycardcenter.neu.edu, returns the user's cookie
-        
-        return null;
+        PageInfo sesstokAndLoginCookie = scrape("/login/ldap.php", null, true);
+
+        //maps the username and password to things in a hashmap for some reason
+        Map<String, String> data = new HashMap<String, String>();
+        this.data.put("User", config.getUsername());
+        this.data.put("Pass", config.getPassword());
+
+        String loginImportantString = "Holder"; // make this equal to things with requests later . . .
+        String[] parts = loginImportantString.split(";");
+        String cookie = parts[0];
+
+        return cookie;
     }
-
-    /*def login(config):
-            """ Logins in to huskycardcenter.neu.edu, returns user cookie """
-
-            if args.verbose: print '[+] Logging in...'
-    sesstok, login_cookie = scrape('/login/ldap.php', None, True)
-    data = {
-        '__sesstok': sesstok,
-                'user': config['USER'],
-                'pass': config['PASS']
-    }
-    login = requests.post('{}/login/ldap.php'.format(BASE_URL),
-    data=data,
-    headers=generate_headers(login_cookie),
-    allow_redirects=False)
-    cookie = login.headers['set-cookie'].split(';')[0]
-
-            if args.verbose: print '\t[i] Got user cookie: {}'.format(cookie)
-
-    if test_login(cookie):
-            if args.verbose: print '[+] Login Successful!'
-            else:
-    print '[-] Login Failed!'
-    print '[-] Exiting'
-            sys.exit()
-
-            return cookie*/
 
     boolean testLogin(String cookie) {
 
