@@ -1,6 +1,13 @@
 package welcomemat.lockpick;
 
+import org.apache.commons.io.IOUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
 import java.util.HashMap;
 
 public class Lockpick {
@@ -17,7 +24,20 @@ public class Lockpick {
     }
 
     // Nick
-    PageInfo scrape(String path, String cookie, boolean getCookie) {
+    PageInfo scrape(String path, String cookie, boolean getCookie) throws IOException {
+        URL url = new URL(BASE_URL + path);
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        try {
+            Map<String, String> headers = generateHeaders(cookie);
+            for(String field : headers.keySet()) {
+                http.setRequestProperty(field, headers.get(field));
+            }
+            IOUtils.toByteArray(http.getInputStream());
+            Document soup = Jsoup.parse(http.getInputStream(), "UTF-8", url.toString());
+            soup.
+        } finally {
+           http.disconnect();
+        }
         return null;
     }
 
