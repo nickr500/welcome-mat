@@ -1,3 +1,5 @@
+package welcomemat.lockpick;
+
 import java.util.Map;
 
 /**
