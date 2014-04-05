@@ -37,7 +37,8 @@ public class Request {
             http.disconnect();
         }
     }
-    public static Response post() {
+
+    public static Response post(String path, Map<String, String> data, Map<String, String> headers) {
         return null;
     }
 }
