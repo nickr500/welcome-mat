@@ -8,13 +8,14 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by nick on 4/5/14.
  */
 public class Request {
-    public static HttpConnection.Response get(String URL, Map<String, String> headers) throws IOException {
+    public static Response get(String URL, Map<String, String> headers) throws IOException {
         java.net.URL url = new URL(BASE_URL + path);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         try {
@@ -22,7 +23,13 @@ public class Request {
             for(String field : headsWillRoll.keySet()) {
                 http.setRequestProperty(field, headsWillRoll.get(field));
             }
-            IOUtils.toByteArray(http.getInputStream());
+            //gets first string using similar code to the for loop above
+            Map<String, String> firsts = new HashMap<String, String>();
+            for(String field : http.getHeaderFields().keySet()){
+                firsts.put(field, http.getHeaderFields().get(field).get(0));
+            }
+            Response magical = new Response(IOUtils.toString(http.getInputStream()), firsts);
+            return magical;
         } finally {
             http.disconnect();
         }
