@@ -62,11 +62,19 @@ public class Lockpick {
         String[] parts = loginImportantString.split(";");
         String cookie = parts[0];
 
+        if (testLogin(cookie)){
+            System.out.println("Login Successful!");
+        } else {
+            throw new RuntimeException("Login Failed!");
+        }
+
         return cookie;
     }
 
     boolean testLogin(String cookie) {
-
+        Response t = Request.get("{}/student/welcome.php".format(BASE_URL));
+        Map<String, String> headers = generateHeaders(cookie);
+        return t.getText().equals("Welcome to CS Gold WebCard Center");
     }
 
     void unlockDoor(String cookie) {
