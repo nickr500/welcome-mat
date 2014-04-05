@@ -26,7 +26,12 @@ public class Lockpick {
 
     // Nick
     PageInfo scrape(String path, String cookie, boolean getCookie) throws IOException {
-        Response resp = Request.get(BASE_URL + path, generateHeaders(cookie));
+        Response resp;
+        if(cookie != null) {
+            resp = Request.get(BASE_URL + path, generateHeaders(cookie));
+        } else {
+            resp = Request.get(BASE_URL + path);
+        }
         Document doc = Jsoup.parse(resp.getText());
 
         // Cookie
