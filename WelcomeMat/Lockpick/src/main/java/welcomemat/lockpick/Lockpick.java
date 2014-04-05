@@ -97,9 +97,4 @@ public class Lockpick {
     Map<String, String> getArgs() {
        return null;
     }
-
-    void unlock() {
-
-    }
-
 }
