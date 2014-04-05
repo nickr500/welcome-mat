@@ -25,19 +25,9 @@ public class Lockpick {
 
     // Nick
     PageInfo scrape(String path, String cookie, boolean getCookie) throws IOException {
-        URL url = new URL(BASE_URL + path);
-        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        try {
-            Map<String, String> headers = generateHeaders(cookie);
-            for(String field : headers.keySet()) {
-                http.setRequestProperty(field, headers.get(field));
-            }
-            IOUtils.toByteArray(http.getInputStream());
-            Document soup = Jsoup.parse(http.getInputStream(), "UTF-8", url.toString());
-            soup.
-        } finally {
-           http.disconnect();
-        }
+        Response resp = Request.get(BASE_URL + path, generateHeaders(cookie));
+        Document doc = Jsoup.parse(resp.getText());
+        
         return null;
     }
 
