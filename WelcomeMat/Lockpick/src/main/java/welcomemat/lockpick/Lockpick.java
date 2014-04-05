@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Lockpick {
+    private static final String BASE_URL = "";
+    
     Map<String, String> generateHeaders(String cookie) {
         return null;
     }
