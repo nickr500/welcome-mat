@@ -15,8 +15,8 @@ public class Lockpick {
     }
 
     // Nick
-    ? scrape(String path, String cookie, boolean getCookie) {
-
+    PageInfo scrape(String path, String cookie, boolean getCookie) {
+        return null;
     }
 
     // Allison
