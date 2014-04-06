@@ -60,6 +60,8 @@ public class Lockpick {
         data.put("User", config.getUsername());
         data.put("Pass", config.getPassword());
 
+        Response loginImportantString = Request.post("{}/login/ldap.php".format(BASE_URL), data, generateHeaders(sesstokAndLoginCookie.getCookie()));
+
         String loginImportantString = "Holder"; // make this equal to things with requests later . . .
         String[] parts = loginImportantString.split(";");
         String cookie = parts[0];
@@ -73,31 +75,26 @@ public class Lockpick {
         return cookie;
     }
 
-    boolean testLogin(String cookie) {
+
+    boolean testLogin(String cookie) throws IOException {
         Response t = Request.get("{}/student/welcome.php".format(BASE_URL));
         Map<String, String> headers = generateHeaders(cookie);
         return t.getText().equals("Welcome to CS Gold WebCard Center");
     }
 
-    void unlockDoor(String cookie) {
+    void unlockDoor(String cookie) throws IOException {
         //Takes the user's cookie, sends the request to unlock that door
 
         PageInfo doorSesstok = this.scrape("/student/openmydoor.php", cookie, false);
-        Boolean room = true; //because only dealing with IV and not a suite
-        Map<String, Boolean> data = new HashMap<String, Boolean>();
-        data.put("doorType", room);
-        data.put("answeredYes", true);
-        String unlock = "Holder"; //here needs to go a request thing
-
-        //and then we're done (the python has test things here)
+        Integer room = 1; //because only dealing with IV and not a suite
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("doorType", Integer.toString(room));
+        data.put("answeredYes", "yes");
+        Response unlock = Request.post("{}/student/openmydoor.php".format(BASE_URL), data, generateHeaders(cookie));
     }
+
 
     Map<String, String> getArgs() {
        return null;
     }
-
-    void unlock() {
-
-    }
-
 }
