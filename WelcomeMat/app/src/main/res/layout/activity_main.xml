@@ -32,7 +32,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editText"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -53,8 +53,10 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="USERNAME:"
         android:id="@+id/textView2"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginTop="42dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +71,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button" />
+        android:text="Submit"
+        android:id="@+id/button"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
