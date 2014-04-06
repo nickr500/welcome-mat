@@ -26,7 +26,7 @@ public class Lockpick {
 
     }
 
-    // Nick
+
     PageInfo scrape(String path, String cookie, boolean getCookie) throws IOException {
         Response resp;
         if(cookie != null) {
@@ -51,7 +51,7 @@ public class Lockpick {
     }
 
     // Allison
-    String login(Config config){
+    String login(Config config) throws IOException {
         // Logs in to the huskycardcenter.neu.edu, returns the user's cookie
         PageInfo sesstokAndLoginCookie = scrape("/login/ldap.php", null, true);
 
@@ -62,8 +62,7 @@ public class Lockpick {
 
         Response loginImportantString = Request.post("{}/login/ldap.php".format(BASE_URL), data, generateHeaders(sesstokAndLoginCookie.getCookie()));
 
-        String loginImportantString = "Holder"; // make this equal to things with requests later . . .
-        String[] parts = loginImportantString.split(";");
+        String[] parts = loginImportantString.getHeaders().get("set-cookie").split(";");
         String cookie = parts[0];
 
         if (testLogin(cookie)){

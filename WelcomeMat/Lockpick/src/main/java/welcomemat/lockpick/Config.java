@@ -1,7 +1,7 @@
 package welcomemat.lockpick;
 
 /**
- * Created by nick on 4/5/14.
+ * Class containing basic authentication information.
  */
 public class Config {
     private String username;
