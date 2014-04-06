@@ -1,5 +1,7 @@
 package welcomemat.lockpick;
 
+import com.squareup.mimecraft.FormEncoding;
+
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.HttpConnection;
@@ -49,12 +51,17 @@ public class Request {
             throws IOException {
         URL url = new URL(path);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        http.setDoOutput(true);
         try {
             setRequestHeaders(http, headers);
-
+            FormEncoding.Builder builder = new FormEncoding.Builder();
+            for(String key : data.keySet()) {
+                builder = builder.add(key, data.get(key));
+            }
+            builder.build().writeBodyTo(http.getOutputStream());
+            return new Response(IOUtils.toString(http.getInputStream()), getResponseHeaders(http));
         } finally {
             http.disconnect();
         }
-
     }
 }
